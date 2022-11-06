@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import * as THREE from 'three';
 import universe from "./universe.jpg"
 import SceneInit from './Renderer.jsx';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 function App() {
 
@@ -12,14 +12,24 @@ function App() {
     test.initialize()
     test.animate()
 
+    let loadedModel
+    const gltfLoader = new GLTFLoader()
+    gltfLoader.load("src/assets/shibaa/scene.gltf", (gltfScene) => {
+      loadedModel = gltfScene
+      test.scene.add(gltfScene.scene)
+      gltfScene.scene.position.set(0,1,1)
+
+
+    })
+
     //Axis Helper
-    const axisHelperr = new THREE.AxesHelper()
-    test.scene.add(axisHelperr)
+    // const axisHelperr = new THREE.AxesHelper()
+    // test.scene.add(axisHelperr)
 
     //Plane Helper
-    const geometryPlane = new THREE.PlaneGeometry( 2, 2 );
+    const geometryPlane = new THREE.PlaneGeometry( 2, 3 );
     const materialPlane = new THREE.MeshBasicMaterial( {
-        color: 0xffff00,
+        color: 0x50577A,
         side: THREE.DoubleSide,
         wireframe: false} );
     const plane = new THREE.Mesh( geometryPlane, materialPlane );
@@ -76,6 +86,19 @@ function App() {
   plane2.material.map = TextureLoader.load(universe)
   plane3.material.map = TextureLoader.load(universe)
   plane4.material.map = TextureLoader.load(universe)
+
+
+  const animate = () => {
+    if(loadedModel){
+      // loadedModel.scene.scale.set(10,10,10)
+      // loadedModel.scene.rotation.x += 0.01
+      loadedModel.scene.rotation.y += 0.01
+      // loadedModel.scene.rotation.z += 0.01
+
+    }
+    requestAnimationFrame(animate)
+  }  
+animate()
 
   }, [])
 
