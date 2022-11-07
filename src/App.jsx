@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import * as THREE from 'three';
 import universe from "./universe.jpg"
 import SceneInit from './Renderer.jsx';
+// import ImportModel from './Shiba';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 function App() {
@@ -15,12 +16,12 @@ function App() {
     let loadedModel
     const gltfLoader = new GLTFLoader()
     gltfLoader.load("src/assets/shibaa/scene.gltf", (gltfScene) => {
-      loadedModel = gltfScene
-      test.scene.add(gltfScene.scene)
-      gltfScene.scene.position.set(0,1,1)
-
-
-    })
+        loadedModel = gltfScene
+        test.scene.add(gltfScene.scene)
+        gltfScene.scene.position.set(0,1,1)
+      
+      
+      })
 
     //Axis Helper
     // const axisHelperr = new THREE.AxesHelper()
@@ -89,13 +90,13 @@ function App() {
 
 
   const animate = () => {
-    if(loadedModel){
-      // loadedModel.scene.scale.set(10,10,10)
-      // loadedModel.scene.rotation.x += 0.01
-      loadedModel.scene.rotation.y += 0.01
-      // loadedModel.scene.rotation.z += 0.01
+    // if(loadedModel){
+    //   // loadedModel.scene.scale.set(10,10,10)
+    //   // loadedModel.scene.rotation.x += 0.01
+    //   // loadedModel.scene.rotation.y += 0.01
+    //   // loadedModel.scene.rotation.z += 0.01
 
-    }
+    // }
     requestAnimationFrame(animate)
   }  
 animate()
